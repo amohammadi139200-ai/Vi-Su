@@ -2,884 +2,692 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0a0a0a">
-<title>Vi-Su AI | Video Subtitle Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>Vi-Su AI — Your Video Studio</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --bg: #090909;
-  --panel: #111111;
-  --panel2: #171717;
-  --orange: #ff5a00;
-  --orange2: #ff7600;
-  --text: #f6f6f6;
-  --muted: #929292;
-  --border: #292929;
+  --bg:#090909;
+  --panel:#121212;
+  --panel2:#191919;
+  --orange:#ff5a00;
+  --bright:#ff7600;
+  --text:#f8f8f8;
+  --muted:#999;
+  --border:#292929;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing:border-box; }
 
 body {
-  background:
-    radial-gradient(ellipse at 90% 0%, #291105 0%, transparent 34%),
-    var(--bg);
-  color: var(--text);
-  font-family: 'Vazirmatn', Tahoma, sans-serif;
-  min-height: 100vh;
+  margin:0;
+  min-height:100vh;
+  background:radial-gradient(ellipse at 85% 0%,#351404 0%,transparent 35%),var(--bg);
+  color:var(--text);
+  font-family:'Vazirmatn',Tahoma,sans-serif;
 }
 
-button, input, select {
-  font: inherit;
-}
+button,input,select,textarea { font:inherit; }
+button { cursor:pointer; }
 
-button {
-  cursor: pointer;
-}
-
-.topbar {
-  height: 78px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 6%;
-  background: rgba(10,10,10,.85);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  backdrop-filter: blur(16px);
+header {
+  height:76px;
+  padding:0 6%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  background:#0b0b0beF;
+  position:sticky;
+  top:0;
+  z-index:5;
+  backdrop-filter:blur(15px);
 }
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:23px;
+  font-weight:800;
 }
 
 .logo {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #ff8a00, #ff4500);
-  color: #fff;
-  display: grid;
-  place-items: center;
-  font-size: 23px;
-  font-weight: 800;
-  box-shadow: 0 0 28px #ff5a0040;
+  width:43px;
+  height:43px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  background:linear-gradient(135deg,#ff8500,#ff4300);
+  box-shadow:0 0 25px #ff5a0040;
 }
 
-.brand-name {
-  font-size: 23px;
-  font-weight: 800;
-  letter-spacing: -.8px;
-}
+.brand span { color:var(--orange); }
 
-.brand-name span {
-  color: var(--orange);
-}
-
-.badge {
-  font-size: 11px;
-  color: #ff8a4c;
-  border: 1px solid #693015;
-  background: #261107;
-  border-radius: 20px;
-  padding: 4px 9px;
-  margin-right: 7px;
-}
-
-.status {
-  color: #aaa;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #ff6500;
-  box-shadow: 0 0 10px #ff6500;
+.header-status {
+  color:#bbb;
+  font-size:12px;
 }
 
 main {
-  max-width: 1160px;
-  margin: auto;
-  padding: 55px 24px 45px;
+  max-width:1100px;
+  margin:auto;
+  padding:45px 22px;
 }
 
 .hero {
-  text-align: center;
-  margin-bottom: 42px;
+  text-align:center;
+  margin-bottom:38px;
 }
 
-.hero-tag {
-  display: inline-block;
-  padding: 7px 15px;
-  color: #ff8b4d;
-  border: 1px solid #592b16;
-  background: #1c100a;
-  border-radius: 30px;
-  font-size: 12px;
-  margin-bottom: 22px;
+.tag {
+  display:inline-block;
+  border:1px solid #633015;
+  background:#211006;
+  color:#ff985f;
+  border-radius:25px;
+  padding:6px 14px;
+  font-size:12px;
+  margin-bottom:17px;
 }
 
-.hero h1 {
-  font-size: clamp(32px, 5vw, 55px);
-  font-weight: 800;
-  line-height: 1.45;
-  letter-spacing: -1.6px;
+h1 {
+  font-size:clamp(32px,5vw,51px);
+  line-height:1.5;
+  margin:0;
+  font-weight:800;
 }
 
-.hero h1 span {
-  color: var(--orange);
-  text-shadow: 0 0 35px #ff5a0040;
-}
+.orange { color:var(--orange); }
 
 .hero p {
-  color: var(--muted);
-  margin: 14px auto 0;
-  max-width: 570px;
-  line-height: 2;
-  font-size: 14px;
+  color:var(--muted);
+  line-height:2;
+  font-size:14px;
+  max-width:570px;
+  margin:10px auto;
 }
 
-.workspace {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
-  gap: 22px;
+.section-title {
+  font-size:19px;
+  font-weight:700;
+  margin:35px 0 17px;
 }
 
-.card {
-  background: linear-gradient(145deg, #151515, #101010);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  padding: 25px;
-  min-width: 0;
+.app-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:20px;
 }
 
-.card-title {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  font-size: 17px;
-  font-weight: 700;
-  margin-bottom: 21px;
+.app-card {
+  border:1px solid #303030;
+  background:linear-gradient(145deg,#171717,#101010);
+  border-radius:22px;
+  padding:27px;
+  text-align:right;
+  transition:.25s;
+  cursor:pointer;
+  min-width:0;
 }
 
-.title-icon {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  background: #291408;
-  color: var(--orange);
-  border-radius: 12px;
-  font-size: 19px;
+.app-card:hover {
+  border-color:var(--orange);
+  transform:translateY(-4px);
+  box-shadow:0 10px 35px #ff5a0015;
 }
 
-.upload-zone {
-  min-height: 245px;
-  border: 1px dashed #57402f;
-  border-radius: 17px;
-  background:
-    radial-gradient(ellipse at center, #30160950, transparent 68%),
-    #101010;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 25px;
-  text-align: center;
-  transition: .25s;
-  cursor: pointer;
+.app-icon {
+  width:62px;
+  height:62px;
+  display:grid;
+  place-items:center;
+  border-radius:19px;
+  background:linear-gradient(135deg,#49200b,#211006);
+  border:1px solid #713514;
+  color:#ff7a24;
+  font-size:29px;
+  margin-bottom:20px;
 }
 
-.upload-zone:hover,
-.upload-zone.dragging {
-  border-color: var(--orange);
-  background-color: #1b100a;
-  box-shadow: inset 0 0 35px #ff5a000c;
+.app-card h2 {
+  font-size:21px;
+  margin:0 0 9px;
+}
+
+.app-card p {
+  color:var(--muted);
+  font-size:13px;
+  line-height:2;
+  min-height:50px;
+}
+
+.card-button,.primary {
+  display:inline-block;
+  border:0;
+  border-radius:11px;
+  background:linear-gradient(110deg,#ff7900,#ff4b00);
+  color:white;
+  font-weight:700;
+  padding:12px 19px;
+  margin-top:12px;
+  box-shadow:0 5px 20px #ff5a0028;
+}
+
+.card-button:hover,.primary:hover {
+  filter:brightness(1.12);
+}
+
+.view { display:none; }
+.view.active { display:block; }
+
+.panel {
+  background:linear-gradient(145deg,#171717,#101010);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:24px;
+  min-width:0;
+}
+
+.back {
+  border:1px solid #373737;
+  background:#171717;
+  color:#ddd;
+  padding:9px 14px;
+  border-radius:10px;
+  margin-bottom:22px;
+}
+
+.back:hover { border-color:var(--orange); }
+
+.panel h2 { margin-top:0; }
+
+.upload {
+  border:1px dashed #754124;
+  background:#130e0b;
+  border-radius:16px;
+  padding:30px 18px;
+  text-align:center;
 }
 
 .upload-icon {
-  width: 66px;
-  height: 66px;
-  border-radius: 21px;
-  display: grid;
-  place-items: center;
-  font-size: 30px;
-  color: var(--orange);
-  background: linear-gradient(145deg, #3b1a09, #201108);
-  border: 1px solid #603016;
-  margin-bottom: 18px;
+  font-size:36px;
+  margin-bottom:12px;
 }
 
-.upload-zone h3 {
-  font-size: 16px;
-  margin-bottom: 8px;
+.muted {
+  color:var(--muted);
+  font-size:13px;
+  line-height:2;
 }
 
-.upload-zone p {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 2;
-}
+input[type=file] { display:none; }
 
-.choose-btn {
-  margin-top: 19px;
-  padding: 10px 20px;
-  color: #fff;
-  background: linear-gradient(135deg, #ff7900, #ff4b00);
-  border: 0;
-  border-radius: 10px;
-  font-weight: 700;
-  box-shadow: 0 5px 22px #ff5a0028;
-}
-
-.choose-btn:hover {
-  filter: brightness(1.12);
-  transform: translateY(-1px);
-}
-
-#videoInput {
-  display: none;
-}
-
-.file-info {
-  display: none;
-  margin-top: 15px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px;
-  gap: 12px;
-  align-items: center;
-  overflow-wrap: anywhere;
-}
-
-.file-icon {
-  font-size: 25px;
-}
-
-.file-name {
-  font-size: 12px;
-  font-weight: 600;
-  overflow-wrap: anywhere;
-}
-
-.file-size {
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 4px;
-}
-
-.field-label {
-  display: block;
-  font-size: 12px;
-  color: #bbb;
-  margin-bottom: 9px;
-}
-
-.field {
-  margin-bottom: 19px;
+label.field-label {
+  display:block;
+  color:#bbb;
+  font-size:12px;
+  margin:18px 0 8px;
 }
 
 select {
-  width: 100%;
-  background: #0b0b0b;
-  color: #eee;
-  border: 1px solid #303030;
-  border-radius: 11px;
-  padding: 13px 12px;
-  outline: none;
+  width:100%;
+  background:#0b0b0b;
+  color:#fff;
+  padding:12px;
+  border:1px solid #333;
+  border-radius:10px;
 }
 
-select:focus {
-  border-color: var(--orange);
+.video-preview {
+  width:100%;
+  max-height:330px;
+  background:#000;
+  border-radius:12px;
+  margin-top:18px;
 }
 
-.language-row {
-  display: grid;
-  grid-template-columns: 1fr 40px 1fr;
-  align-items: end;
-  gap: 10px;
+.result {
+  background:#0b0b0b;
+  border:1px solid #292929;
+  border-radius:12px;
+  padding:16px;
+  margin-top:20px;
+  color:#bbb;
+  line-height:2;
+  font-size:13px;
+  overflow-wrap:anywhere;
 }
 
-.swap-btn {
-  height: 44px;
-  width: 40px;
-  border: 1px solid #49230f;
-  background: #251208;
-  color: var(--orange);
-  border-radius: 11px;
-  font-size: 20px;
-  margin-bottom: 19px;
+.chat-panel {
+  padding:0;
+  overflow:hidden;
 }
 
-.check-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #ccc;
-  font-size: 12px;
-  margin: 18px 0;
+.chat-heading {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:18px 22px;
+  border-bottom:1px solid var(--border);
 }
 
-.check-row input {
-  accent-color: var(--orange);
-  width: 16px;
-  height: 16px;
+.chat-heading .app-icon {
+  width:45px;
+  height:45px;
+  font-size:23px;
+  margin:0;
+  border-radius:14px;
 }
 
-.primary-btn {
-  width: 100%;
-  padding: 14px;
-  border: 0;
-  border-radius: 12px;
-  background: linear-gradient(110deg, #ff7900, #ff4d00);
-  color: #fff;
-  font-weight: 800;
-  box-shadow: 0 6px 28px #ff5a0026;
-  transition: .2s;
+.chat-heading h2 {
+  font-size:17px;
+  margin:0;
 }
 
-.primary-btn:hover {
-  filter: brightness(1.12);
-  transform: translateY(-2px);
+.online {
+  color:#aaa;
+  font-size:11px;
+  margin-top:3px;
 }
 
-.primary-btn:disabled {
-  opacity: .5;
-  cursor: not-allowed;
-  transform: none;
+.online-dot {
+  display:inline-block;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#ff6800;
+  margin-left:5px;
 }
 
-.notice {
-  color: #8f8f8f;
-  text-align: center;
-  font-size: 11px;
-  line-height: 2;
-  margin-top: 13px;
+.chat-messages {
+  height:360px;
+  overflow-y:auto;
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  gap:17px;
 }
 
-.result-card {
-  margin-top: 22px;
+.message {
+  max-width:85%;
+  padding:13px 15px;
+  border-radius:15px;
+  line-height:2;
+  font-size:13px;
+  overflow-wrap:anywhere;
 }
 
-.result-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 17px;
+.message.ai {
+  align-self:flex-start;
+  background:#1b1b1b;
+  border:1px solid #303030;
+  border-top-right-radius:4px;
 }
 
-.result-head .card-title {
-  margin-bottom: 0;
+.message.user {
+  align-self:flex-end;
+  background:#642607;
+  border:1px solid #8a370d;
+  border-top-left-radius:4px;
 }
 
-.result-count {
-  color: #aaa;
-  background: #202020;
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 11px;
+.chat-suggestions {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  padding:0 18px 15px;
 }
 
-.result-box {
-  min-height: 145px;
-  background: #0b0b0b;
-  border: 1px solid #292929;
-  border-radius: 14px;
-  padding: 17px;
-  color: #bcbcbc;
-  font-size: 13px;
-  line-height: 2.2;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
+.suggestion {
+  background:#171717;
+  border:1px solid #373737;
+  color:#ddd;
+  border-radius:20px;
+  padding:7px 11px;
+  font-size:11px;
 }
 
-.result-box.empty {
-  display: grid;
-  place-items: center;
-  text-align: center;
-  color: #777;
+.suggestion:hover {
+  border-color:var(--orange);
+  color:#ff8b4c;
 }
 
-.result-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 14px;
+.chat-input-area {
+  border-top:1px solid var(--border);
+  padding:16px;
 }
 
-.secondary-btn {
-  flex: 1;
-  padding: 11px;
-  border: 1px solid #343434;
-  background: #191919;
-  color: #ddd;
-  border-radius: 10px;
-  font-size: 12px;
+.chat-form {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#0b0b0b;
+  border:1px solid #343434;
+  border-radius:14px;
+  padding:7px;
 }
 
-.secondary-btn:hover {
-  border-color: var(--orange);
-  color: #ff8a4c;
+.chat-form:focus-within {
+  border-color:var(--orange);
+}
+
+.chat-form input {
+  flex:1;
+  min-width:0;
+  background:transparent;
+  color:white;
+  border:0;
+  outline:0;
+  padding:10px;
+}
+
+.send {
+  width:43px;
+  height:43px;
+  flex-shrink:0;
+  border:0;
+  border-radius:11px;
+  color:white;
+  font-size:19px;
+  background:linear-gradient(135deg,#ff7900,#ff4b00);
+}
+
+.chat-note {
+  color:#777;
+  font-size:10px;
+  line-height:1.8;
+  text-align:center;
+  margin-top:10px;
 }
 
 .features {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  margin-top: 24px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin-top:35px;
 }
 
 .feature {
-  background: #111;
-  border: 1px solid #252525;
-  border-radius: 15px;
-  padding: 19px;
+  background:#121212;
+  border:1px solid #292929;
+  border-radius:15px;
+  padding:18px;
 }
 
-.feature-icon {
-  font-size: 23px;
-  margin-bottom: 12px;
-}
+.feature-icon { font-size:24px; }
 
 .feature h3 {
-  font-size: 13px;
-  margin-bottom: 6px;
+  font-size:13px;
+  margin:10px 0 5px;
 }
 
 .feature p {
-  font-size: 11px;
-  line-height: 1.9;
-  color: #888;
+  font-size:11px;
+  line-height:2;
+  color:#888;
+  margin:0;
 }
 
 footer {
-  text-align: center;
-  padding: 30px 15px;
-  border-top: 1px solid #202020;
-  color: #777;
-  font-size: 11px;
-  margin-top: 40px;
+  border-top:1px solid #242424;
+  text-align:center;
+  padding:25px;
+  color:#777;
+  font-size:11px;
 }
 
-footer span {
-  color: var(--orange);
-}
+footer span { color:var(--orange); }
 
-.toast {
-  position: fixed;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: #242424;
-  border: 1px solid #454545;
-  color: #fff;
-  padding: 12px 18px;
-  border-radius: 12px;
-  font-size: 12px;
-  transition: .3s;
-  z-index: 100;
-  width: max-content;
-  max-width: 90%;
-  text-align: center;
-}
-
-.toast.show {
-  transform: translateX(-50%) translateY(0);
-}
-
-@media (max-width: 760px) {
-  .topbar {
-    padding: 0 18px;
-    height: 68px;
-  }
-
-  .brand-name {
-    font-size: 20px;
-  }
-
-  .badge {
-    display: none;
-  }
-
-  main {
-    padding: 38px 15px;
-  }
-
-  .workspace {
-    grid-template-columns: 1fr;
-  }
-
-  .card {
-    padding: 19px;
-  }
-
-  .features {
-    grid-template-columns: 1fr;
-  }
-
-  .hero {
-    margin-bottom: 30px;
-  }
-
-  .status {
-    font-size: 10px;
-  }
+@media(max-width:650px) {
+  header { padding:0 16px; }
+  main { padding:32px 14px; }
+  .app-grid,.features { grid-template-columns:1fr; }
+  .app-card { padding:22px; }
+  .header-status { font-size:10px; }
+  .chat-messages { height:320px; }
 }
 </style>
 </head>
 
 <body>
 
-<header class="topbar">
+<header>
   <div class="brand">
     <div class="logo">V</div>
-    <div>
-      <div class="brand-name">Vi-Su <span>AI</span></div>
-    </div>
-    <span class="badge">VIDEO STUDIO</span>
+    <div>Vi-Su <span>AI</span></div>
   </div>
-  <div class="status">
-    <span class="dot"></span>
-    استودیوی ترجمه ویدئو
-  </div>
+  <div class="header-status">🟠 استودیوی هوش مصنوعی</div>
 </header>
 
 <main>
-  <section class="hero">
-    <div class="hero-tag">✦ نسل جدید ابزارهای ویدئویی</div>
-    <h1>ویدئوی تو،<br><span>به زبان تو!</span></h1>
+
+<!-- HOME -->
+<section id="home" class="view active">
+  <div class="hero">
+    <div class="tag">✦ YOUR AI CREATIVE STUDIO</div>
+    <h1>دنیای تو،<br><span class="orange">با قدرت هوش مصنوعی</span></h1>
     <p>
-      یک فضای ساده و مدرن برای آماده‌سازی ویدئو،
-      زیرنویس و ترجمه در یک محیط حرفه‌ای.
+      یک فضای مدرن برای گفتگو با هوش مصنوعی،
+      مدیریت ویدئو و آماده‌سازی زیرنویس.
     </p>
-  </section>
+  </div>
 
-  <section class="workspace">
+  <div class="section-title">فضای کاری خودت را انتخاب کن</div>
 
-    <div class="card">
-      <div class="card-title">
-        <div class="title-icon">▣</div>
-        انتخاب ویدئو
-      </div>
-
-      <input id="videoInput" type="file" accept="video/*">
-
-      <div class="upload-zone" id="uploadZone" role="button"
-           tabindex="0" aria-label="انتخاب فایل ویدئویی">
-        <div class="upload-icon">⬆</div>
-        <h3>ویدئوی خود را اینجا انتخاب کن</h3>
-        <p>برای انتخاب فایل کلیک کن یا آن را به این قسمت بکش.</p>
-        <button class="choose-btn" id="chooseBtn" type="button">
-          🎬 انتخاب ویدئو
-        </button>
-        <p style="margin-top:12px">فرمت‌های مجاز به دستگاه و مرورگر بستگی دارند.</p>
-      </div>
-
-      <div class="file-info" id="fileInfo">
-        <div class="file-icon">🎞️</div>
-        <div>
-          <div class="file-name" id="fileName"></div>
-          <div class="file-size" id="fileSize"></div>
-        </div>
-      </div>
-
-      <div style="margin-top:22px">
-        <div class="card-title">
-          <div class="title-icon">◎</div>
-          زبان‌ها
-        </div>
-
-        <div class="language-row">
-          <div class="field">
-            <label class="field-label" for="sourceLang">زبان ویدئو</label>
-            <select id="sourceLang">
-              <option value="auto">تشخیص خودکار</option>
-              <option value="en">🇬🇧 انگلیسی</option>
-              <option value="fa">🇮🇷 فارسی</option>
-              <option value="tr">🇹🇷 ترکی</option>
-              <option value="ar">🇸🇦 عربی</option>
-              <option value="ru">🇷🇺 روسی</option>
-              <option value="fr">🇫🇷 فرانسوی</option>
-              <option value="de">🇩🇪 آلمانی</option>
-              <option value="es">🇪🇸 اسپانیایی</option>
-              <option value="ja">🇯🇵 ژاپنی</option>
-              <option value="zh">🇨🇳 چینی</option>
-            </select>
-          </div>
-
-          <button class="swap-btn" id="swapBtn" type="button"
-                  title="جابجایی زبان‌ها" aria-label="جابجایی زبان‌ها">⇄</button>
-
-          <div class="field">
-            <label class="field-label" for="targetLang">زبان ترجمه</label>
-            <select id="targetLang">
-              <option value="fa">🇮🇷 فارسی</option>
-              <option value="en">🇬🇧 انگلیسی</option>
-              <option value="tr">🇹🇷 ترکی</option>
-              <option value="ar">🇸🇦 عربی</option>
-              <option value="ru">🇷🇺 روسی</option>
-              <option value="fr">🇫🇷 فرانسوی</option>
-              <option value="de">🇩🇪 آلمانی</option>
-              <option value="es">🇪🇸 اسپانیایی</option>
-              <option value="ja">🇯🇵 ژاپنی</option>
-              <option value="zh">🇨🇳 چینی</option>
-            </select>
-          </div>
-        </div>
-
-        <label class="check-row">
-          <input type="checkbox" id="hardcode">
-          <span>می‌خواهم زیرنویس روی تصویر ویدئو قرار بگیرد.</span>
-        </label>
-
-        <button class="primary-btn" id="startBtn" type="button">
-          ✨ آماده‌سازی زیرنویس
-        </button>
-
-        <p class="notice">
-          این رابط کاربری هنوز به موتور تشخیص گفتار و ترجمه متصل نیست.
-        </p>
-      </div>
+  <div class="app-grid">
+    <div class="app-card" onclick="openView('videoView')">
+      <div class="app-icon">🎬</div>
+      <h2>Video Studio</h2>
+      <p>
+        ویدئوی خودت را انتخاب کن، پیش‌نمایش آن را ببین
+        و زبان موردنظر برای زیرنویس را مشخص کن.
+      </p>
+      <button class="card-button" type="button">ورود به استودیو ←</button>
     </div>
 
-    <div class="card">
-      <div class="card-title">
-        <div class="title-icon">▶</div>
-        پیش‌نمایش ویدئو
-      </div>
-
-      <video id="videoPreview" controls
-        style="display:none;width:100%;max-height:320px;border-radius:14px;background:#000">
-      </video>
-
-      <div id="videoPlaceholder" class="upload-zone"
-        style="min-height:245px;cursor:default">
-        <div class="upload-icon">▶</div>
-        <h3>آمادهٔ نمایش</h3>
-        <p>پس از انتخاب ویدئو، پیش‌نمایش آن اینجا نمایش داده می‌شود.</p>
-      </div>
-
-      <div style="margin-top:25px">
-        <div class="card-title">
-          <div class="title-icon">✎</div>
-          زیرنویس و ترجمه
-        </div>
-
-        <div class="result-box empty" id="resultBox">
-          <div>
-            <div style="font-size:30px;margin-bottom:10px">▤</div>
-            هنوز زیرنویسی تولید نشده است.<br>
-            نتیجهٔ پردازش در این قسمت نمایش داده خواهد شد.
-          </div>
-        </div>
-
-        <div class="result-actions">
-          <button class="secondary-btn" id="copyBtn" type="button">
-            ▣ کپی متن
-          </button>
-          <button class="secondary-btn" id="downloadBtn" type="button">
-            ↓ دریافت SRT
-          </button>
-        </div>
-      </div>
+    <div class="app-card" onclick="openView('chatView')">
+      <div class="app-icon">💬</div>
+      <h2>AI Chat</h2>
+      <p>
+        وارد فضای گفتگو شو؛ برای پرسش‌ها، ایده‌ها،
+        ترجمه و کمک در کارهای روزانه.
+      </p>
+      <button class="card-button" type="button">شروع گفتگو ←</button>
     </div>
+  </div>
 
-  </section>
-
-  <section class="features">
+  <div class="features">
     <div class="feature">
-      <div class="feature-icon">🎬</div>
+      <div class="feature-icon">🎞️</div>
       <h3>مدیریت ویدئو</h3>
-      <p>انتخاب فایل و مشاهدهٔ پیش‌نمایش در محیطی یکپارچه.</p>
+      <p>انتخاب و مشاهدهٔ ویدئو در یک محیط زیبا.</p>
     </div>
     <div class="feature">
       <div class="feature-icon">🌐</div>
       <h3>چندزبانه</h3>
-      <p>انتخاب زبان مبدأ و مقصد برای گردش کار ترجمه.</p>
+      <p>انتخاب زبان مبدأ و مقصد برای ترجمه.</p>
     </div>
     <div class="feature">
-      <div class="feature-icon">📝</div>
-      <h3>زیرنویس SRT</h3>
-      <p>فضای نمایش و دریافت فایل زیرنویس پس از اتصال موتور پردازش.</p>
+      <div class="feature-icon">✨</div>
+      <h3>طراحی مدرن</h3>
+      <p>رنگ‌های مشکی و نارنجی با رابط کاربری واکنش‌گرا.</p>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- VIDEO STUDIO -->
+<section id="videoView" class="view">
+  <button class="back" onclick="openView('home')">→ بازگشت به صفحهٔ اصلی</button>
+
+  <div class="panel">
+    <h2>🎬 Video Studio</h2>
+    <p class="muted">ویدئو را انتخاب کن تا پیش‌نمایش آن نمایش داده شود.</p>
+
+    <div class="upload">
+      <div class="upload-icon">⬆️</div>
+      <p>ویدئوی خود را انتخاب کن</p>
+      <label class="card-button" for="videoInput" style="display:inline-block;cursor:pointer">
+        انتخاب ویدئو
+      </label>
+      <input type="file" id="videoInput" accept="video/*">
+      <div class="muted" id="fileName"></div>
+    </div>
+
+    <video id="videoPreview" class="video-preview" controls hidden></video>
+
+    <label class="field-label" for="sourceLang">زبان اصلی ویدئو</label>
+    <select id="sourceLang">
+      <option value="auto">تشخیص خودکار</option>
+      <option value="en">🇬🇧 انگلیسی</option>
+      <option value="fa">🇮🇷 فارسی</option>
+      <option value="tr">🇹🇷 ترکی</option>
+      <option value="ar">🇸🇦 عربی</option>
+      <option value="ru">🇷🇺 روسی</option>
+    </select>
+
+    <label class="field-label" for="targetLang">زبان ترجمه</label>
+    <select id="targetLang">
+      <option value="fa">🇮🇷 فارسی</option>
+      <option value="en">🇬🇧 انگلیسی</option>
+      <option value="tr">🇹🇷 ترکی</option>
+      <option value="ar">🇸🇦 عربی</option>
+      <option value="ru">🇷🇺 روسی</option>
+    </select>
+
+    <button class="primary" onclick="showVideoNotice()">✨ آماده‌سازی زیرنویس</button>
+
+    <div class="result" id="videoNotice">
+      برای تولید واقعی زیرنویس و ترجمه، باید موتور هوش مصنوعی به این بخش متصل شود.
+    </div>
+  </div>
+</section>
+
+<!-- AI CHAT -->
+<section id="chatView" class="view">
+  <button class="back" onclick="openView('home')">→ بازگشت به صفحهٔ اصلی</button>
+
+  <div class="panel chat-panel">
+    <div class="chat-heading">
+      <div class="app-icon">✦</div>
+      <div>
+        <h2>Vi-Su AI Chat</h2>
+        <div class="online"><span class="online-dot"></span>رابط گفت‌وگو آماده است</div>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="messages">
+      <div class="message ai">
+        سلام! 👋 به Vi-Su AI خوش آمدی.<br>
+        می‌توانی پیامت را در کادر پایین بنویسی. برای پاسخ‌های هوشمند واقعی، لازم است سرویس هوش مصنوعی متصل شود.
+      </div>
+    </div>
+
+    <div class="chat-suggestions">
+      <button class="suggestion" onclick="useSuggestion('متنی را به فارسی ترجمه کن')">🌐 ترجمهٔ متن</button>
+      <button class="suggestion" onclick="useSuggestion('برای ساخت زیرنویس راهنمایی‌ام کن')">🎬 کمک با زیرنویس</button>
+      <button class="suggestion" onclick="useSuggestion('چه کارهایی می‌توانم با هوش مصنوعی انجام دهم؟')">✨ ایده‌های هوش مصنوعی</button>
+    </div>
+
+    <div class="chat-input-area">
+      <form class="chat-form" id="chatForm">
+        <input id="chatInput" type="text" placeholder="پیامت را اینجا بنویس..." autocomplete="off" required>
+        <button class="send" type="submit" aria-label="ارسال پیام">➤</button>
+      </form>
+      <div class="chat-note">
+        این نسخه نمایشی است؛ پیام‌ها هنوز به یک مدل هوش مصنوعی ارسال نمی‌شوند.
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
 
-<footer>
-  ساخته‌شده با <span>♥</span> برای تجربه‌ای بهتر در دنیای ویدئو — Vi-Su AI
-</footer>
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<footer>ساخته‌شده با <span>♥</span> — Vi-Su AI</footer>
 
 <script>
+function openView(id) {
+  document.querySelectorAll('.view').forEach(view => {
+    view.classList.remove('active');
+  });
+
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
 const videoInput = document.getElementById('videoInput');
-const uploadZone = document.getElementById('uploadZone');
-const chooseBtn = document.getElementById('chooseBtn');
-const fileInfo = document.getElementById('fileInfo');
-const fileName = document.getElementById('fileName');
-const fileSize = document.getElementById('fileSize');
 const videoPreview = document.getElementById('videoPreview');
-const videoPlaceholder = document.getElementById('videoPlaceholder');
-const startBtn = document.getElementById('startBtn');
-const resultBox = document.getElementById('resultBox');
-const toast = document.getElementById('toast');
-
-let selectedFile = null;
-let videoURL = null;
-let subtitleText = '';
-
-function showToast(message) {
-  toast.textContent = message;
-  toast.classList.add('show');
-  clearTimeout(showToast.timer);
-  showToast.timer = setTimeout(() => {
-    toast.classList.remove('show');
-  }, 3000);
-}
-
-function openPicker() {
-  videoInput.click();
-}
-
-chooseBtn.addEventListener('click', event => {
-  event.stopPropagation();
-  openPicker();
-});
-
-uploadZone.addEventListener('click', openPicker);
-
-uploadZone.addEventListener('keydown', event => {
-  if (event.key === 'Enter' || event.key === ' ') {
-    event.preventDefault();
-    openPicker();
-  }
-});
+let currentVideoURL = null;
 
 videoInput.addEventListener('change', () => {
   const file = videoInput.files[0];
-  if (file) loadVideo(file);
-});
+  if (!file) return;
 
-function loadVideo(file) {
   if (!file.type.startsWith('video/')) {
-    showToast('لطفاً یک فایل ویدئویی انتخاب کن.');
+    alert('لطفاً یک فایل ویدئویی انتخاب کن.');
     return;
   }
 
-  selectedFile = file;
+  if (currentVideoURL) URL.revokeObjectURL(currentVideoURL);
+  currentVideoURL = URL.createObjectURL(file);
 
-  if (videoURL) URL.revokeObjectURL(videoURL);
-  videoURL = URL.createObjectURL(file);
+  videoPreview.src = currentVideoURL;
+  videoPreview.hidden = false;
+  document.getElementById('fileName').textContent =
+    'ویدئوی انتخاب‌شده: ' + file.name;
+});
 
-  videoPreview.src = videoURL;
-  videoPreview.style.display = 'block';
-  videoPlaceholder.style.display = 'none';
+function showVideoNotice() {
+  const file = videoInput.files[0];
 
-  fileInfo.style.display = 'flex';
-  fileName.textContent = file.name;
-  fileSize.textContent = formatBytes(file.size);
+  if (!file) {
+    alert('ابتدا یک ویدئو انتخاب کن.');
+    return;
+  }
 
-  showToast('ویدئو با موفقیت انتخاب شد.');
+  document.getElementById('videoNotice').textContent =
+    'ویدئو انتخاب شده است؛ برای تولید زیرنویس و ترجمهٔ واقعی باید موتور پردازش ویدئو متصل شود.';
 }
 
-function formatBytes(bytes) {
-  if (bytes < 1024 * 1024) {
-    return (bytes / 1024).toFixed(1) + ' KB';
-  }
-  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+const chatForm = document.getElementById('chatForm');
+const chatInput = document.getElementById('chatInput');
+const messages = document.getElementById('messages');
+
+function addMessage(text, type) {
+  const message = document.createElement('div');
+  message.className = 'message ' + type;
+  message.textContent = text;
+  messages.appendChild(message);
+  messages.scrollTop = messages.scrollHeight;
 }
 
-['dragenter', 'dragover'].forEach(eventName => {
-  uploadZone.addEventListener(eventName, event => {
-    event.preventDefault();
-    uploadZone.classList.add('dragging');
-  });
-});
+function useSuggestion(text) {
+  chatInput.value = text;
+  chatInput.focus();
+}
 
-['dragleave', 'drop'].forEach(eventName => {
-  uploadZone.addEventListener(eventName, event => {
-    event.preventDefault();
-    uploadZone.classList.remove('dragging');
-  });
-});
+chatForm.addEventListener('submit', event => {
+  event.preventDefault();
 
-uploadZone.addEventListener('drop', event => {
-  const file = event.dataTransfer.files[0];
-  if (file) loadVideo(file);
-});
+  const text = chatInput.value.trim();
+  if (!text) return;
 
-document.getElementById('swapBtn').addEventListener('click', () => {
-  const source = document.getElementById('sourceLang');
-  const target = document.getElementById('targetLang');
+  addMessage(text, 'user');
+  chatInput.value = '';
 
-  if (source.value === 'auto') {
-    showToast('برای جابجایی، ابتدا زبان ویدئو را مشخص کن.');
-    return;
-  }
-
-  const oldSource = source.value;
-  source.value = target.value;
-  target.value = oldSource;
-});
-
-startBtn.addEventListener('click', () => {
-  if (!selectedFile) {
-    showToast('ابتدا یک ویدئو انتخاب کن.');
-    return;
-  }
-
-  showToast('برای تولید واقعی زیرنویس، باید موتور هوش مصنوعی متصل شود.');
-});
-
-document.getElementById('copyBtn').addEventListener('click', async () => {
-  if (!subtitleText) {
-    showToast('هنوز متنی برای کپی وجود ندارد.');
-    return;
-  }
-
-  try {
-    await navigator.clipboard.writeText(subtitleText);
-    showToast('متن زیرنویس کپی شد.');
-  } catch {
-    showToast('کپی خودکار ممکن نشد؛ متن را دستی انتخاب کن.');
-  }
-});
-
-document.getElementById('downloadBtn').addEventListener('click', () => {
-  if (!subtitleText) {
-    showToast('هنوز زیرنویسی برای دریافت وجود ندارد.');
-    return;
-  }
-
-  const blob = new Blob(
-    ['\uFEFF' + subtitleText],
-    { type: 'text/plain;charset=utf-8' }
-  );
-
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = 'vi-su-subtitles.srt';
-  link.click();
-  URL.revokeObjectURL(link.href);
+  setTimeout(() => {
+    addMessage(
+      'پیامت در رابط کاربری ثبت شد. برای اینکه Vi-Su AI بتواند پاسخ هوشمند تولید کند، باید یک سرویس هوش مصنوعی به چت متصل کنیم.',
+      'ai'
+    );
+  }, 350);
 });
 
 window.addEventListener('beforeunload', () => {
-  if (videoURL) URL.revokeObjectURL(videoURL);
+  if (currentVideoURL) URL.revokeObjectURL(currentVideoURL);
 });
 </script>
 
