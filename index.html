@@ -3,94 +3,885 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI-SUBTITLE</title>
+<meta name="theme-color" content="#0a0a0a">
+<title>Vi-Su AI | Video Subtitle Studio</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#101010;color:#fff;font-family:Arial,sans-serif;display:flex;height:100vh}
-.sidebar{width:250px;background:#181818;padding:20px;border-left:1px solid #303030}
-.logo{font-size:23px;font-weight:bold;color:#ff8c00;margin-bottom:30px}
-button{cursor:pointer;border:0;border-radius:10px;padding:12px;background:#ff8c00;color:#111;font-weight:bold}
-.newchat{width:100%;margin-bottom:25px}
-.sidebar p{color:#999;font-size:13px}
-.main{flex:1;display:flex;flex-direction:column;min-width:0}
-header{padding:20px;border-bottom:1px solid #303030;font-weight:bold}
-.welcome{margin:auto;text-align:center;padding:20px}
-.welcome h1{font-size:32px}
-.welcome span{color:#ff8c00}
-.welcome p{color:#aaa;line-height:2}
-.composer{width:min(800px,92%);margin:20px auto 30px;background:#202020;border:1px solid #444;border-radius:18px;padding:12px}
-textarea{width:100%;height:65px;background:transparent;color:white;border:0;outline:0;resize:vertical;font-size:16px;padding:10px}
-.tools{display:flex;align-items:center;gap:10px}
-.attach{background:#333;color:#fff}
-.send{margin-right:auto}
-#file{display:none}
-#messages{width:min(800px,92%);margin:20px auto;overflow:auto;flex:1}
-.message{padding:14px;margin:10px 0;border-radius:12px;line-height:1.8;white-space:pre-wrap}
-.user{background:#302519}
-.bot{background:#202020}
-@media(max-width:600px){.sidebar{width:75px;padding:12px}.logo{font-size:12px}.sidebar p{display:none}.welcome h1{font-size:24px}}
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #090909;
+  --panel: #111111;
+  --panel2: #171717;
+  --orange: #ff5a00;
+  --orange2: #ff7600;
+  --text: #f6f6f6;
+  --muted: #929292;
+  --border: #292929;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 90% 0%, #291105 0%, transparent 34%),
+    var(--bg);
+  color: var(--text);
+  font-family: 'Vazirmatn', Tahoma, sans-serif;
+  min-height: 100vh;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.topbar {
+  height: 78px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  background: rgba(10,10,10,.85);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(16px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ff8a00, #ff4500);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 23px;
+  font-weight: 800;
+  box-shadow: 0 0 28px #ff5a0040;
+}
+
+.brand-name {
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -.8px;
+}
+
+.brand-name span {
+  color: var(--orange);
+}
+
+.badge {
+  font-size: 11px;
+  color: #ff8a4c;
+  border: 1px solid #693015;
+  background: #261107;
+  border-radius: 20px;
+  padding: 4px 9px;
+  margin-right: 7px;
+}
+
+.status {
+  color: #aaa;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff6500;
+  box-shadow: 0 0 10px #ff6500;
+}
+
+main {
+  max-width: 1160px;
+  margin: auto;
+  padding: 55px 24px 45px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 42px;
+}
+
+.hero-tag {
+  display: inline-block;
+  padding: 7px 15px;
+  color: #ff8b4d;
+  border: 1px solid #592b16;
+  background: #1c100a;
+  border-radius: 30px;
+  font-size: 12px;
+  margin-bottom: 22px;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 5vw, 55px);
+  font-weight: 800;
+  line-height: 1.45;
+  letter-spacing: -1.6px;
+}
+
+.hero h1 span {
+  color: var(--orange);
+  text-shadow: 0 0 35px #ff5a0040;
+}
+
+.hero p {
+  color: var(--muted);
+  margin: 14px auto 0;
+  max-width: 570px;
+  line-height: 2;
+  font-size: 14px;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  gap: 22px;
+}
+
+.card {
+  background: linear-gradient(145deg, #151515, #101010);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 25px;
+  min-width: 0;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 21px;
+}
+
+.title-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  background: #291408;
+  color: var(--orange);
+  border-radius: 12px;
+  font-size: 19px;
+}
+
+.upload-zone {
+  min-height: 245px;
+  border: 1px dashed #57402f;
+  border-radius: 17px;
+  background:
+    radial-gradient(ellipse at center, #30160950, transparent 68%),
+    #101010;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  text-align: center;
+  transition: .25s;
+  cursor: pointer;
+}
+
+.upload-zone:hover,
+.upload-zone.dragging {
+  border-color: var(--orange);
+  background-color: #1b100a;
+  box-shadow: inset 0 0 35px #ff5a000c;
+}
+
+.upload-icon {
+  width: 66px;
+  height: 66px;
+  border-radius: 21px;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  color: var(--orange);
+  background: linear-gradient(145deg, #3b1a09, #201108);
+  border: 1px solid #603016;
+  margin-bottom: 18px;
+}
+
+.upload-zone h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.upload-zone p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+}
+
+.choose-btn {
+  margin-top: 19px;
+  padding: 10px 20px;
+  color: #fff;
+  background: linear-gradient(135deg, #ff7900, #ff4b00);
+  border: 0;
+  border-radius: 10px;
+  font-weight: 700;
+  box-shadow: 0 5px 22px #ff5a0028;
+}
+
+.choose-btn:hover {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+}
+
+#videoInput {
+  display: none;
+}
+
+.file-info {
+  display: none;
+  margin-top: 15px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  gap: 12px;
+  align-items: center;
+  overflow-wrap: anywhere;
+}
+
+.file-icon {
+  font-size: 25px;
+}
+
+.file-name {
+  font-size: 12px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.file-size {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.field-label {
+  display: block;
+  font-size: 12px;
+  color: #bbb;
+  margin-bottom: 9px;
+}
+
+.field {
+  margin-bottom: 19px;
+}
+
+select {
+  width: 100%;
+  background: #0b0b0b;
+  color: #eee;
+  border: 1px solid #303030;
+  border-radius: 11px;
+  padding: 13px 12px;
+  outline: none;
+}
+
+select:focus {
+  border-color: var(--orange);
+}
+
+.language-row {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  align-items: end;
+  gap: 10px;
+}
+
+.swap-btn {
+  height: 44px;
+  width: 40px;
+  border: 1px solid #49230f;
+  background: #251208;
+  color: var(--orange);
+  border-radius: 11px;
+  font-size: 20px;
+  margin-bottom: 19px;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ccc;
+  font-size: 12px;
+  margin: 18px 0;
+}
+
+.check-row input {
+  accent-color: var(--orange);
+  width: 16px;
+  height: 16px;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(110deg, #ff7900, #ff4d00);
+  color: #fff;
+  font-weight: 800;
+  box-shadow: 0 6px 28px #ff5a0026;
+  transition: .2s;
+}
+
+.primary-btn:hover {
+  filter: brightness(1.12);
+  transform: translateY(-2px);
+}
+
+.primary-btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.notice {
+  color: #8f8f8f;
+  text-align: center;
+  font-size: 11px;
+  line-height: 2;
+  margin-top: 13px;
+}
+
+.result-card {
+  margin-top: 22px;
+}
+
+.result-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 17px;
+}
+
+.result-head .card-title {
+  margin-bottom: 0;
+}
+
+.result-count {
+  color: #aaa;
+  background: #202020;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+}
+
+.result-box {
+  min-height: 145px;
+  background: #0b0b0b;
+  border: 1px solid #292929;
+  border-radius: 14px;
+  padding: 17px;
+  color: #bcbcbc;
+  font-size: 13px;
+  line-height: 2.2;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.result-box.empty {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: #777;
+}
+
+.result-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.secondary-btn {
+  flex: 1;
+  padding: 11px;
+  border: 1px solid #343434;
+  background: #191919;
+  color: #ddd;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.secondary-btn:hover {
+  border-color: var(--orange);
+  color: #ff8a4c;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 24px;
+}
+
+.feature {
+  background: #111;
+  border: 1px solid #252525;
+  border-radius: 15px;
+  padding: 19px;
+}
+
+.feature-icon {
+  font-size: 23px;
+  margin-bottom: 12px;
+}
+
+.feature h3 {
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.feature p {
+  font-size: 11px;
+  line-height: 1.9;
+  color: #888;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  border-top: 1px solid #202020;
+  color: #777;
+  font-size: 11px;
+  margin-top: 40px;
+}
+
+footer span {
+  color: var(--orange);
+}
+
+.toast {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #242424;
+  border: 1px solid #454545;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 12px;
+  transition: .3s;
+  z-index: 100;
+  width: max-content;
+  max-width: 90%;
+  text-align: center;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 760px) {
+  .topbar {
+    padding: 0 18px;
+    height: 68px;
+  }
+
+  .brand-name {
+    font-size: 20px;
+  }
+
+  .badge {
+    display: none;
+  }
+
+  main {
+    padding: 38px 15px;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 19px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    margin-bottom: 30px;
+  }
+
+  .status {
+    font-size: 10px;
+  }
+}
 </style>
 </head>
+
 <body>
-<aside class="sidebar">
-<div class="logo">AI-SUBTITLE</div>
-<button class="newchat" onclick="newChat()">+ گفتگوی جدید</button>
-<p>دستیار هوش مصنوعی</p>
-<p>💬 گفتگو</p>
-<p>🎬 ترجمه ویدئو</p>
-<p>📝 زیرنویس خودکار</p>
-</aside>
-<main class="main">
-<header>دستیار هوش مصنوعی <span style="color:#ff8c00">●</span></header>
-<section class="welcome" id="welcome">
-<h1>سلام! به <span>AI-SUBTITLE</span> خوش آمدی</h1>
-<p>سؤالت را بنویس یا فایلی انتخاب کن.<br>برای شروع، یک پیام در کادر پایین بنویس.</p>
-</section>
-<section id="messages"></section>
-<div class="composer">
-<textarea id="prompt" placeholder="هر چیزی که می‌خواهی بپرس..."></textarea>
-<div class="tools">
-<label class="attach button" for="file">📎 پیوست فایل</label>
-<input type="file" id="file" accept="image/*,video/*,.pdf,.txt,.doc,.docx,.srt,.vtt">
-<button onclick="sendMessage()" class="send">ارسال ↑</button>
-</div>
-<div id="filename" style="color:#aaa;font-size:12px;margin-top:8px"></div>
-</div>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">V</div>
+    <div>
+      <div class="brand-name">Vi-Su <span>AI</span></div>
+    </div>
+    <span class="badge">VIDEO STUDIO</span>
+  </div>
+  <div class="status">
+    <span class="dot"></span>
+    استودیوی ترجمه ویدئو
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-tag">✦ نسل جدید ابزارهای ویدئویی</div>
+    <h1>ویدئوی تو،<br><span>به زبان تو!</span></h1>
+    <p>
+      یک فضای ساده و مدرن برای آماده‌سازی ویدئو،
+      زیرنویس و ترجمه در یک محیط حرفه‌ای.
+    </p>
+  </section>
+
+  <section class="workspace">
+
+    <div class="card">
+      <div class="card-title">
+        <div class="title-icon">▣</div>
+        انتخاب ویدئو
+      </div>
+
+      <input id="videoInput" type="file" accept="video/*">
+
+      <div class="upload-zone" id="uploadZone" role="button"
+           tabindex="0" aria-label="انتخاب فایل ویدئویی">
+        <div class="upload-icon">⬆</div>
+        <h3>ویدئوی خود را اینجا انتخاب کن</h3>
+        <p>برای انتخاب فایل کلیک کن یا آن را به این قسمت بکش.</p>
+        <button class="choose-btn" id="chooseBtn" type="button">
+          🎬 انتخاب ویدئو
+        </button>
+        <p style="margin-top:12px">فرمت‌های مجاز به دستگاه و مرورگر بستگی دارند.</p>
+      </div>
+
+      <div class="file-info" id="fileInfo">
+        <div class="file-icon">🎞️</div>
+        <div>
+          <div class="file-name" id="fileName"></div>
+          <div class="file-size" id="fileSize"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:22px">
+        <div class="card-title">
+          <div class="title-icon">◎</div>
+          زبان‌ها
+        </div>
+
+        <div class="language-row">
+          <div class="field">
+            <label class="field-label" for="sourceLang">زبان ویدئو</label>
+            <select id="sourceLang">
+              <option value="auto">تشخیص خودکار</option>
+              <option value="en">🇬🇧 انگلیسی</option>
+              <option value="fa">🇮🇷 فارسی</option>
+              <option value="tr">🇹🇷 ترکی</option>
+              <option value="ar">🇸🇦 عربی</option>
+              <option value="ru">🇷🇺 روسی</option>
+              <option value="fr">🇫🇷 فرانسوی</option>
+              <option value="de">🇩🇪 آلمانی</option>
+              <option value="es">🇪🇸 اسپانیایی</option>
+              <option value="ja">🇯🇵 ژاپنی</option>
+              <option value="zh">🇨🇳 چینی</option>
+            </select>
+          </div>
+
+          <button class="swap-btn" id="swapBtn" type="button"
+                  title="جابجایی زبان‌ها" aria-label="جابجایی زبان‌ها">⇄</button>
+
+          <div class="field">
+            <label class="field-label" for="targetLang">زبان ترجمه</label>
+            <select id="targetLang">
+              <option value="fa">🇮🇷 فارسی</option>
+              <option value="en">🇬🇧 انگلیسی</option>
+              <option value="tr">🇹🇷 ترکی</option>
+              <option value="ar">🇸🇦 عربی</option>
+              <option value="ru">🇷🇺 روسی</option>
+              <option value="fr">🇫🇷 فرانسوی</option>
+              <option value="de">🇩🇪 آلمانی</option>
+              <option value="es">🇪🇸 اسپانیایی</option>
+              <option value="ja">🇯🇵 ژاپنی</option>
+              <option value="zh">🇨🇳 چینی</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="check-row">
+          <input type="checkbox" id="hardcode">
+          <span>می‌خواهم زیرنویس روی تصویر ویدئو قرار بگیرد.</span>
+        </label>
+
+        <button class="primary-btn" id="startBtn" type="button">
+          ✨ آماده‌سازی زیرنویس
+        </button>
+
+        <p class="notice">
+          این رابط کاربری هنوز به موتور تشخیص گفتار و ترجمه متصل نیست.
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="title-icon">▶</div>
+        پیش‌نمایش ویدئو
+      </div>
+
+      <video id="videoPreview" controls
+        style="display:none;width:100%;max-height:320px;border-radius:14px;background:#000">
+      </video>
+
+      <div id="videoPlaceholder" class="upload-zone"
+        style="min-height:245px;cursor:default">
+        <div class="upload-icon">▶</div>
+        <h3>آمادهٔ نمایش</h3>
+        <p>پس از انتخاب ویدئو، پیش‌نمایش آن اینجا نمایش داده می‌شود.</p>
+      </div>
+
+      <div style="margin-top:25px">
+        <div class="card-title">
+          <div class="title-icon">✎</div>
+          زیرنویس و ترجمه
+        </div>
+
+        <div class="result-box empty" id="resultBox">
+          <div>
+            <div style="font-size:30px;margin-bottom:10px">▤</div>
+            هنوز زیرنویسی تولید نشده است.<br>
+            نتیجهٔ پردازش در این قسمت نمایش داده خواهد شد.
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="secondary-btn" id="copyBtn" type="button">
+            ▣ کپی متن
+          </button>
+          <button class="secondary-btn" id="downloadBtn" type="button">
+            ↓ دریافت SRT
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="features">
+    <div class="feature">
+      <div class="feature-icon">🎬</div>
+      <h3>مدیریت ویدئو</h3>
+      <p>انتخاب فایل و مشاهدهٔ پیش‌نمایش در محیطی یکپارچه.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🌐</div>
+      <h3>چندزبانه</h3>
+      <p>انتخاب زبان مبدأ و مقصد برای گردش کار ترجمه.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📝</div>
+      <h3>زیرنویس SRT</h3>
+      <p>فضای نمایش و دریافت فایل زیرنویس پس از اتصال موتور پردازش.</p>
+    </div>
+  </section>
 </main>
+
+<footer>
+  ساخته‌شده با <span>♥</span> برای تجربه‌ای بهتر در دنیای ویدئو — Vi-Su AI
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
-const promptBox=document.getElementById('prompt');
-const fileBox=document.getElementById('file');
-fileBox.addEventListener('change',()=>{
- document.getElementById('filename').textContent=
- fileBox.files.length?'فایل انتخاب‌شده: '+fileBox.files[0].name:'';
+const videoInput = document.getElementById('videoInput');
+const uploadZone = document.getElementById('uploadZone');
+const chooseBtn = document.getElementById('chooseBtn');
+const fileInfo = document.getElementById('fileInfo');
+const fileName = document.getElementById('fileName');
+const fileSize = document.getElementById('fileSize');
+const videoPreview = document.getElementById('videoPreview');
+const videoPlaceholder = document.getElementById('videoPlaceholder');
+const startBtn = document.getElementById('startBtn');
+const resultBox = document.getElementById('resultBox');
+const toast = document.getElementById('toast');
+
+let selectedFile = null;
+let videoURL = null;
+let subtitleText = '';
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+}
+
+function openPicker() {
+  videoInput.click();
+}
+
+chooseBtn.addEventListener('click', event => {
+  event.stopPropagation();
+  openPicker();
 });
-function addMessage(text,type){
- const el=document.createElement('div');
- el.className='message '+type;
- el.textContent=text;
- document.getElementById('messages').appendChild(el);
- el.scrollIntoView({behavior:'smooth'});
+
+uploadZone.addEventListener('click', openPicker);
+
+uploadZone.addEventListener('keydown', event => {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    openPicker();
+  }
+});
+
+videoInput.addEventListener('change', () => {
+  const file = videoInput.files[0];
+  if (file) loadVideo(file);
+});
+
+function loadVideo(file) {
+  if (!file.type.startsWith('video/')) {
+    showToast('لطفاً یک فایل ویدئویی انتخاب کن.');
+    return;
+  }
+
+  selectedFile = file;
+
+  if (videoURL) URL.revokeObjectURL(videoURL);
+  videoURL = URL.createObjectURL(file);
+
+  videoPreview.src = videoURL;
+  videoPreview.style.display = 'block';
+  videoPlaceholder.style.display = 'none';
+
+  fileInfo.style.display = 'flex';
+  fileName.textContent = file.name;
+  fileSize.textContent = formatBytes(file.size);
+
+  showToast('ویدئو با موفقیت انتخاب شد.');
 }
-function sendMessage(){
- const text=promptBox.value.trim();
- const file=fileBox.files[0];
- if(!text&&!file)return;
- document.getElementById('welcome').style.display='none';
- addMessage((text||'')+(file?'\n📎 فایل انتخاب‌شده: '+file.name:''),'user');
- addMessage('رابط کاربری آماده است؛ برای دریافت پاسخ واقعی هوش مصنوعی باید سرویس هوش مصنوعی را به برنامه متصل کنیم. قابلیت پردازش فایل و ترجمه ویدئو نیز هنوز نیاز به پیاده‌سازی دارد.','bot');
- promptBox.value='';
- fileBox.value='';
- document.getElementById('filename').textContent='';
+
+function formatBytes(bytes) {
+  if (bytes < 1024 * 1024) {
+    return (bytes / 1024).toFixed(1) + ' KB';
+  }
+  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
 }
-function newChat(){
- document.getElementById('messages').innerHTML='';
- document.getElementById('welcome').style.display='block';
- promptBox.value='';
-}
-promptBox.addEventListener('keydown',e=>{
- if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage()}
+
+['dragenter', 'dragover'].forEach(eventName => {
+  uploadZone.addEventListener(eventName, event => {
+    event.preventDefault();
+    uploadZone.classList.add('dragging');
+  });
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+  uploadZone.addEventListener(eventName, event => {
+    event.preventDefault();
+    uploadZone.classList.remove('dragging');
+  });
+});
+
+uploadZone.addEventListener('drop', event => {
+  const file = event.dataTransfer.files[0];
+  if (file) loadVideo(file);
+});
+
+document.getElementById('swapBtn').addEventListener('click', () => {
+  const source = document.getElementById('sourceLang');
+  const target = document.getElementById('targetLang');
+
+  if (source.value === 'auto') {
+    showToast('برای جابجایی، ابتدا زبان ویدئو را مشخص کن.');
+    return;
+  }
+
+  const oldSource = source.value;
+  source.value = target.value;
+  target.value = oldSource;
+});
+
+startBtn.addEventListener('click', () => {
+  if (!selectedFile) {
+    showToast('ابتدا یک ویدئو انتخاب کن.');
+    return;
+  }
+
+  showToast('برای تولید واقعی زیرنویس، باید موتور هوش مصنوعی متصل شود.');
+});
+
+document.getElementById('copyBtn').addEventListener('click', async () => {
+  if (!subtitleText) {
+    showToast('هنوز متنی برای کپی وجود ندارد.');
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(subtitleText);
+    showToast('متن زیرنویس کپی شد.');
+  } catch {
+    showToast('کپی خودکار ممکن نشد؛ متن را دستی انتخاب کن.');
+  }
+});
+
+document.getElementById('downloadBtn').addEventListener('click', () => {
+  if (!subtitleText) {
+    showToast('هنوز زیرنویسی برای دریافت وجود ندارد.');
+    return;
+  }
+
+  const blob = new Blob(
+    ['\uFEFF' + subtitleText],
+    { type: 'text/plain;charset=utf-8' }
+  );
+
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'vi-su-subtitles.srt';
+  link.click();
+  URL.revokeObjectURL(link.href);
+});
+
+window.addEventListener('beforeunload', () => {
+  if (videoURL) URL.revokeObjectURL(videoURL);
 });
 </script>
+
 </body>
 </html>
-```
